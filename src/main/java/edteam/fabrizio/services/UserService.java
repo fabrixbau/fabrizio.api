@@ -1,5 +1,7 @@
 package edteam.fabrizio.services;
 
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import edteam.fabrizio.dao.UserDao;
 import edteam.fabrizio.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,13 @@ public class UserService {
         return userDao.get(id);
     }
 
-
-    public User register(User user ) {
-        return userDao.register(user);
+    public void register(User user) {
+        String hash = generarHash(user.getPassword());
+        user.setPassword(hash);
+        userDao.register(user);
     }
 
-    public User update(@RequestBody User user){
+    public User update(@RequestBody User user) {
         return userDao.update(user);
     }
 
@@ -36,5 +39,12 @@ public class UserService {
         userDao.delete(id);
     }
 
+    private String generarHash(String password) {
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        return argon2.hash(1, 1024 * 1, 1, password);
+    }
 
+    public User login(User user) {
+        return userDao.login(user);
+    }
 }

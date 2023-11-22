@@ -10,4 +10,5 @@ public interface UserDao {
     User register(User user);
     User update(User user);
     void delete(long id);
+    public User login(User user);
 }
