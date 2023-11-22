@@ -11,15 +11,18 @@ import java.util.Set;
 @Table(name = "role")
 public class Role extends BaseEntity {
 
-    @Getter @Setter
+
     @Column(name = "nombre")
+    @Getter @Setter
     private String nombre;
 
     /**
      * permisos
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "role")
+
     @Getter @Setter
     private Set<Permiso> permisos;
+
 
 }

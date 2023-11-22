@@ -1,49 +1,48 @@
 package edteam.fabrizio.controller;
 
-import edteam.fabrizio.models.User;
-import edteam.fabrizio.services.UserService;
+import edteam.fabrizio.models.Role;
+import edteam.fabrizio.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("role")
+public class RoleController {
 
     @Autowired
-    UserService userService;
+    RoleService roleService;
 
     // Trae todos los usuarios
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    List<User> getAll() {
-        return userService.getAll();
+    List<Role> getAll() {
+        return roleService.getAll();
     }
 
     // Trae usuario por Id
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    User get(@PathVariable long id) {
-        return userService.get(id);
+    Role get(@PathVariable long id) {
+        return roleService.get(id);
     }
 
     // Registrar usuario
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    User register(@RequestBody User user ) {
-        return userService.register(user);
+    Role register(@RequestBody Role role ) {
+        return roleService.register(role);
     }
 
     //Actualizar usuario
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    User update(@RequestBody User user) {
-        return userService.update(user);
+    Role update(@RequestBody Role role) {
+        return roleService.update(role);
     }
 
 
     // Eliminar
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     void delete(@PathVariable long id){
-        userService.delete(id);
+        roleService.delete(id);
     }
-
+    
 }
